@@ -1,0 +1,14 @@
+sources:
+- description: Dataframes Mage upstream blocks
+  loader: mage
+  name: mage_dbt_project
+  schema: dwh_db
+  tables:
+  - description: Dataframe for block `truncate_deletion_log` of the `kumparan_hourly_elt`
+      mage pipeline.
+    identifier: mage_kumparan_hourly_elt_truncate_deletion_log
+    meta:
+      block_uuid: truncate_deletion_log
+      pipeline_uuid: kumparan_hourly_elt
+    name: kumparan_hourly_elt_truncate_deletion_log
+version: 2

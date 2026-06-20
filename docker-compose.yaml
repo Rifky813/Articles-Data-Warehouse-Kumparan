@@ -1,0 +1,48 @@
+services:
+  # 1. Source Database (PostgreSQL)
+  postgres_source:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: source_db
+    ports:
+      - "5435:5432"
+    # WAJIB: Menyalakan Logical Replication untuk CDC PeerDB
+    command: ["postgres", "-c", "wal_level=logical"]
+    volumes:
+      - ./init_db/01_source_init.sql:/docker-entrypoint-initdb.d/01_source_init.sql
+
+  # 2. Target Data Warehouse (ClickHouse)
+  clickhouse_dwh:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123" # HTTP Port
+      - "9000:9000" # Native Port
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: password
+      CLICKHOUSE_DB: dwh_db
+    volumes:
+      - ./init_db/02_dwh_init.sql:/docker-entrypoint-initdb.d/02_dwh_init.sql
+
+  # 3. Data Generator (Simulasi Aplikasi berjalan)
+  data_generator:
+    image: python:3.10-slim
+    volumes:
+      - ./generator:/app
+    working_dir: /app
+    command: sh -c "pip install psycopg2-binary faker && python generate_data.py"
+    depends_on:
+      - postgres_source
+
+  # 4. Mage.ai (Pengganti Airflow)
+  mage:
+    image: mageai/mageai:latest
+    environment:
+      USER_CODE_PATH: /home/src/kumparan_project
+    ports:
+      - "6789:6789"
+    volumes:
+      - ./mage_data:/home/src
+      - ./dbt_project:/home/src/kumparan_project/dbt_project # Mount dbt ke Mage

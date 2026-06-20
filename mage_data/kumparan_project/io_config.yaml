@@ -1,0 +1,23 @@
+# ==============================================================================
+# NOTE FOR REVIEWERS:
+# This io_config.yaml is COMMITTED purely for the convenience of this assessment.
+# In a real-world Production environment, 
+# this file MUST BE added to .gitignore.
+# ==============================================================================
+
+version: 0.1.1
+default:
+  # --- Kredensial Source (PostgreSQL) ---
+  POSTGRES_DBNAME: source_db
+  POSTGRES_SCHEMA: public
+  POSTGRES_USER: user
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST: postgres_source
+  POSTGRES_PORT: 5432
+
+  # --- Kredensial Target (ClickHouse) ---
+  CLICKHOUSE_DATABASE: dwh_db
+  CLICKHOUSE_USER: default
+  CLICKHOUSE_PASSWORD: password
+  CLICKHOUSE_HOST: clickhouse_dwh
+  CLICKHOUSE_PORT: 8123

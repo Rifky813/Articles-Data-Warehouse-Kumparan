@@ -1,0 +1,21 @@
+# Mengabaikan Database Internal Mage & State (Wajib!)
+mage_data/**/mage-ai.db
+mage_data/**/.cache/
+mage_data/**/.operation_history/
+mage_data/**/.file_versions/
+mage_data/**/.ssh_tunnel/
+
+# Mengabaikan Folder Log Eksekusi
+mage_data/logs/
+mage_data/**/logs/
+
+# Mengabaikan Folder dbt yang ter-generate otomatis (Hasil Compile)
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# Mengabaikan environment Python (Jika ada)
+venv/
+.env
+__pycache__/
+*.pyc

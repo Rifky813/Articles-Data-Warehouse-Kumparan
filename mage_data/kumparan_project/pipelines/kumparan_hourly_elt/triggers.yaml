@@ -1,0 +1,14 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2026-06-20 08:52:48.418415
+  name: hourly ELT
+  pipeline_uuid: kumparan_hourly_elt
+  schedule_interval: '@hourly'
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2026-06-20 09:00:00
+  status: active
+  token: e59c20fb8773473da7bd3b40ef9e2c77
+  variables: {}

@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: default
+    database: dwh_db
+    tables:
+      - name: raw_articles
+      - name: raw_deleted_log

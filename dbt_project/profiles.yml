@@ -1,0 +1,11 @@
+kumparan_dwh:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      driver: http
+      host: clickhouse_dwh
+      port: 8123
+      user: default
+      password: password
+      schema: dwh_db
