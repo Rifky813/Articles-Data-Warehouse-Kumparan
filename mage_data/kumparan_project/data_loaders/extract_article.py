@@ -8,28 +8,25 @@ if 'data_loader' not in globals():
 
 @data_loader
 def load_data_from_postgres(*args, **kwargs):
-    # 1. Tangkap variabel waktu dari Trigger / Backfill Mage
     start_time = kwargs.get('interval_start_datetime')
     end_time = kwargs.get('interval_end_datetime')
-    
-    # 2. Susun Query Dinamis (Time-Window)
-    if not start_time or not end_time:
-        # Jika di-run manual (play button UI), fallback narik 1 jam terakhir
+
+    is_manual_ui = kwargs.get('event') == {} and kwargs.get('context') == {} and not kwargs.get('pipeline_run_id')
+    if is_manual_ui:
+        # if manual run (play button UI), fallback to pulling last hour
         query = "SELECT * FROM articles WHERE updated_at >= NOW() - INTERVAL '1 HOUR'"
-        print("Run Manual: Mengekstrak data 1 jam terakhir.")
+        print("Run Manual: Extracting last hour data.")
     else:
-        # Jika di-run oleh Trigger / Backfill
+        # if Backfill / Trigger run
         query = f"""
             SELECT * FROM articles 
             WHERE updated_at >= '{start_time}' 
             AND updated_at < '{end_time}'
         """
-        print(f"Time-Window Run: Mengekstrak dari {start_time} sampai {end_time}")
+        print(f"Time-Window Run: Extract from {start_time} to {end_time}")
 
-    # 3. Eksekusi menggunakan io_config.yaml (Tanpa Hardcode)
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 
     with Postgres.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
-        # Pemuat bawaan Mage ini otomatis mengembalikan Pandas DataFrame
         return loader.load(query)

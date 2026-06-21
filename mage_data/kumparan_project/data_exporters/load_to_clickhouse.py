@@ -31,7 +31,7 @@ def export_data(df_articles, df_logs, *args, **kwargs):
         )
         print(f"Successfully loaded {len(df_articles)} rows to raw_articles")
     else:
-        print("No new articles at this hour.")
+        print(f"No new articles at this hour. {len(df_articles)}")
         
     # 4. Push Deletion Logs DataFrame ke ClickHouse (jika tidak kosong)
     if isinstance(df_logs, pd.DataFrame) and not df_logs.empty:

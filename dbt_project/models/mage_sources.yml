@@ -4,11 +4,11 @@ sources:
   name: mage_dbt_project
   schema: dwh_db
   tables:
-  - description: Dataframe for block `truncate_deletion_log` of the `kumparan_hourly_elt`
+  - description: Dataframe for block `load_to_clickhouse` of the `kumparan_hourly_elt`
       mage pipeline.
-    identifier: mage_kumparan_hourly_elt_truncate_deletion_log
+    identifier: mage_kumparan_hourly_elt_load_to_clickhouse
     meta:
-      block_uuid: truncate_deletion_log
+      block_uuid: load_to_clickhouse
       pipeline_uuid: kumparan_hourly_elt
-    name: kumparan_hourly_elt_truncate_deletion_log
+    name: kumparan_hourly_elt_load_to_clickhouse
 version: 2

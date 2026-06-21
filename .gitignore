@@ -4,6 +4,7 @@ mage_data/**/.cache/
 mage_data/**/.operation_history/
 mage_data/**/.file_versions/
 mage_data/**/.ssh_tunnel/
+mage_data/**/pipelines
 
 # Mengabaikan Folder Log Eksekusi
 mage_data/logs/
